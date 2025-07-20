@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Interactiva - Fisioterapia</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9fb;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #6c63ff;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .year {
+      background: #eeeafd;
+      border-radius: 10px;
+      padding: 10px;
+      width: 250px;
+    }
+    .year h2 {
+      text-align: center;
+      color: #5c51c4;
+    }
+    .period {
+      margin-top: 10px;
+    }
+    .period h3 {
+      margin-bottom: 5px;
+      color: #554abf;
+    }
+    .subject {
+      background: #ffffff;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 2px solid #dcdcdc;
+      transition: 0.2s;
+    }
+    .subject:hover {
+      background: #f0f0ff;
+    }
+    .approved {
+      background: #c8f7c5 !important;
+      border-color: #87e189;
+      text-decoration: line-through;
+    }
+    .disabled {
+      background: #f1f1f1;
+      color: #aaa;
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+  </style>
+</head>
+<body>
+<h1>Malla Interactiva de Fisioterapia</h1>
+<div class="container" id="malla"></div>
+<script>
+const data = const data = {"mallaData": [{"año": 1, "periodo": "anual", "materias": [{"id": "f6fefb4c-a7db-446c-9142-413a50fa2a45", "nombre": "Metodología científica", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}]}, {"año": 1, "periodo": "Semestre 1", "materias": [{"id": "27f9ab78-6404-42df-aa61-c28a371143e2", "nombre": "Enfermería I", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "f2016d6b-d224-48ed-aaff-d85a448350e6", "nombre": "Salud Pública", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "90286110-e1c9-42c6-bcb0-56d856e2fb96", "nombre": "Psicología I", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "d3fadcff-2b45-4637-adc2-f50c537b1051", "nombre": "Física Médica I", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "fb5c7eff-d54d-4a10-aa23-b9cf7fcfcf17", "nombre": "Biología Celular y Tisular", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "42bda1c9-9766-4058-a8e8-24e2a993babc", "nombre": "Anatomía", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}]}, {"año": 1, "periodo": "Semestre 2", "materias": [{"id": "e2e16080-c66d-4eb3-8057-e0fd43975175", "nombre": "Profundización del Aparato Locomotor", "tipo": "ninguno", "requisitos": ["42bda1c9-9766-4058-a8e8-24e2a993babc"], "creditos": 0, "requiereCreditos": 0}, {"id": "8f8895d3-001e-423a-9ec7-e1b566a93fd2", "nombre": "Biomecánica y Kinesiología", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "e328ea42-d32f-449a-9200-b2bffac49f3c", "nombre": "Neurobiología", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "c2c8405d-440c-4f99-b29a-e52c3856d049", "nombre": "Cardiovascular y Respiratorio", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "eaf3ff63-dc02-415a-b5d5-5cbdc8e9c0a6", "nombre": "Digestivo, Renal y Endócrino", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "1f40c699-c3b8-43c8-86c8-0e68c2bb95ef", "nombre": "Reproductor y Desarrollo", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}]}, {"año": 2, "periodo": "anual", "materias": [{"id": "da8ba46c-4180-4e75-8255-05ba16e54a19", "nombre": "Kinesiología y Kinesiterapia I", "tipo": "ninguno", "requisitos": ["fb5c7eff-d54d-4a10-aa23-b9cf7fcfcf17", "42bda1c9-9766-4058-a8e8-24e2a993babc", "e2e16080-c66d-4eb3-8057-e0fd43975175", "8f8895d3-001e-423a-9ec7-e1b566a93fd2", "e328ea42-d32f-449a-9200-b2bffac49f3c", "c2c8405d-440c-4f99-b29a-e52c3856d049", "eaf3ff63-dc02-415a-b5d5-5cbdc8e9c0a6", "1f40c699-c3b8-43c8-86c8-0e68c2bb95ef"], "creditos": 0, "requiereCreditos": 0}, {"id": "c7a0b760-ab24-4651-b605-b309b43e5262", "nombre": "Física Médica II", "tipo": "ninguno", "requisitos": ["d3fadcff-2b45-4637-adc2-f50c537b1051", "fb5c7eff-d54d-4a10-aa23-b9cf7fcfcf17", "42bda1c9-9766-4058-a8e8-24e2a993babc", "e2e16080-c66d-4eb3-8057-e0fd43975175", "e328ea42-d32f-449a-9200-b2bffac49f3c", "c2c8405d-440c-4f99-b29a-e52c3856d049", "eaf3ff63-dc02-415a-b5d5-5cbdc8e9c0a6", "1f40c699-c3b8-43c8-86c8-0e68c2bb95ef"], "creditos": 0, "requiereCreditos": 0}, {"id": "50b57f2e-50b4-4d6c-b0ec-fbdbdf1861b6", "nombre": "Gimnasia Terapéutica I", "tipo": "ninguno", "requisitos": ["fb5c7eff-d54d-4a10-aa23-b9cf7fcfcf17", "42bda1c9-9766-4058-a8e8-24e2a993babc", "e2e16080-c66d-4eb3-8057-e0fd43975175", "8f8895d3-001e-423a-9ec7-e1b566a93fd2", "e328ea42-d32f-449a-9200-b2bffac49f3c", "c2c8405d-440c-4f99-b29a-e52c3856d049", "eaf3ff63-dc02-415a-b5d5-5cbdc8e9c0a6", "1f40c699-c3b8-43c8-86c8-0e68c2bb95ef"], "creditos": 0, "requiereCreditos": 0}, {"id": "8500dacb-f34d-42f5-a297-a8a8c5feb922", "nombre": "Psicología II", "tipo": "ninguno", "requisitos": ["90286110-e1c9-42c6-bcb0-56d856e2fb96"], "creditos": 0, "requiereCreditos": 0}, {"id": "03946e91-d533-4349-b177-41385a21754c", "nombre": "Fisiopatología", "tipo": "ninguno", "requisitos": ["fb5c7eff-d54d-4a10-aa23-b9cf7fcfcf17", "42bda1c9-9766-4058-a8e8-24e2a993babc", "e2e16080-c66d-4eb3-8057-e0fd43975175", "e328ea42-d32f-449a-9200-b2bffac49f3c", "c2c8405d-440c-4f99-b29a-e52c3856d049", "eaf3ff63-dc02-415a-b5d5-5cbdc8e9c0a6", "1f40c699-c3b8-43c8-86c8-0e68c2bb95ef"], "creditos": 0, "requiereCreditos": 0}]}, {"año": 3, "periodo": "anual", "materias": [{"id": "65f8dcfe-4b11-4b51-a591-5b197071a49f", "nombre": "Kinesiología y Kinesiterapia II", "tipo": "ninguno", "requisitos": ["da8ba46c-4180-4e75-8255-05ba16e54a19"], "creditos": 0, "requiereCreditos": 0}, {"id": "dd2b6c83-7afd-41c7-b668-5b06f45a042c", "nombre": "Fisica Médica III", "tipo": "ninguno", "requisitos": ["c7a0b760-ab24-4651-b605-b309b43e5262"], "creditos": 0, "requiereCreditos": 0}, {"id": "d1362855-6392-4b1f-bcb6-791319ae0e3f", "nombre": "Gimnasia Terapeutica II", "tipo": "ninguno", "requisitos": ["50b57f2e-50b4-4d6c-b0ec-fbdbdf1861b6"], "creditos": 0, "requiereCreditos": 0}, {"id": "2d8710d6-9061-4249-9730-f3568a120308", "nombre": "Psicología III", "tipo": "ninguno", "requisitos": ["8500dacb-f34d-42f5-a297-a8a8c5feb922"], "creditos": 0, "requiereCreditos": 0}]}, {"año": 3, "periodo": "Semestre 1", "materias": [{"id": "fe06b56e-56d5-49b9-afd5-f8fd62f8b2cb", "nombre": "Neuropatología", "tipo": "ninguno", "requisitos": ["03946e91-d533-4349-b177-41385a21754c"], "creditos": 0, "requiereCreditos": 0}]}, {}, {"año": 4, "periodo": "anual", "materias": []}, {"año": 4, "periodo": "Semestre 1", "materias": [{"id": "038c7bb0-47d5-41f9-ae00-fa2d0d65ec76", "nombre": "Kinesiología y Kinesiterapia III", "tipo": "ninguno", "requisitos": ["65f8dcfe-4b11-4b51-a591-5b197071a49f"], "creditos": 0, "requiereCreditos": 0}, {"id": "137f5b4c-c29f-45a5-a353-49e77b17dd29", "nombre": "Gimnasia Terapeutica III", "tipo": "ninguno", "requisitos": ["d1362855-6392-4b1f-bcb6-791319ae0e3f"], "creditos": 0, "requiereCreditos": 0}, {"id": "31d92998-6fa8-4834-a140-3b2d121ac62a", "nombre": "Deontología y legislación laboral", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}, {"id": "14739deb-64c6-471e-8468-7ea095f3e3a9", "nombre": "Administración Hospitalaria", "tipo": "ninguno", "requisitos": [], "creditos": 0, "requiereCreditos": 0}]}, {"año": 4, "periodo": "Semestre 2", "materias": [{"id": "ef9f3b1b-09cc-4619-9e95-d839e320ea3b", "nombre": "Ciclo Internado", "tipo": "ninguno", "requisitos": ["f6fefb4c-a7db-446c-9142-413a50fa2a45", "27f9ab78-6404-42df-aa61-c28a371143e2", "f2016d6b-d224-48ed-aaff-d85a448350e6", "90286110-e1c9-42c6-bcb0-56d856e2fb96", "d3fadcff-2b45-4637-adc2-f50c537b1051", "fb5c7eff-d54d-4a10-aa23-b9cf7fcfcf17", "42bda1c9-9766-4058-a8e8-24e2a993babc", "e2e16080-c66d-4eb3-8057-e0fd43975175", "8f8895d3-001e-423a-9ec7-e1b566a93fd2", "e328ea42-d32f-449a-9200-b2bffac49f3c", "c2c8405d-440c-4f99-b29a-e52c3856d049", "eaf3ff63-dc02-415a-b5d5-5cbdc8e9c0a6", "1f40c699-c3b8-43c8-86c8-0e68c2bb95ef", "da8ba46c-4180-4e75-8255-05ba16e54a19", "c7a0b760-ab24-4651-b605-b309b43e5262", "50b57f2e-50b4-4d6c-b0ec-fbdbdf1861b6", "8500dacb-f34d-42f5-a297-a8a8c5feb922", "03946e91-d533-4349-b177-41385a21754c", "65f8dcfe-4b11-4b51-a591-5b197071a49f", "dd2b6c83-7afd-41c7-b668-5b06f45a042c", "d1362855-6392-4b1f-bcb6-791319ae0e3f", "2d8710d6-9061-4249-9730-f3568a120308", "fe06b56e-56d5-49b9-afd5-f8fd62f8b2cb", "038c7bb0-47d5-41f9-ae00-fa2d0d65ec76", "137f5b4c-c29f-45a5-a353-49e77b17dd29", "31d92998-6fa8-4834-a140-3b2d121ac62a", "14739deb-64c6-471e-8468-7ea095f3e3a9"], "creditos": 0, "requiereCreditos": 0}, {"id": "6ccacb0a-8d4c-4739-9b49-c42d90d51cf9", "nombre": "Monografía", "tipo": "ninguno", "requisitos": ["f6fefb4c-a7db-446c-9142-413a50fa2a45", "27f9ab78-6404-42df-aa61-c28a371143e2", "f2016d6b-d224-48ed-aaff-d85a448350e6", "90286110-e1c9-42c6-bcb0-56d856e2fb96", "d3fadcff-2b45-4637-adc2-f50c537b1051", "fb5c7eff-d54d-4a10-aa23-b9cf7fcfcf17", "e2e16080-c66d-4eb3-8057-e0fd43975175", "42bda1c9-9766-4058-a8e8-24e2a993babc", "8f8895d3-001e-423a-9ec7-e1b566a93fd2", "e328ea42-d32f-449a-9200-b2bffac49f3c", "c2c8405d-440c-4f99-b29a-e52c3856d049", "eaf3ff63-dc02-415a-b5d5-5cbdc8e9c0a6", "1f40c699-c3b8-43c8-86c8-0e68c2bb95ef", "da8ba46c-4180-4e75-8255-05ba16e54a19", "c7a0b760-ab24-4651-b605-b309b43e5262", "50b57f2e-50b4-4d6c-b0ec-fbdbdf1861b6", "8500dacb-f34d-42f5-a297-a8a8c5feb922", "03946e91-d533-4349-b177-41385a21754c", "65f8dcfe-4b11-4b51-a591-5b197071a49f", "dd2b6c83-7afd-41c7-b668-5b06f45a042c", "d1362855-6392-4b1f-bcb6-791319ae0e3f", "2d8710d6-9061-4249-9730-f3568a120308", "fe06b56e-56d5-49b9-afd5-f8fd62f8b2cb", "038c7bb0-47d5-41f9-ae00-fa2d0d65ec76", "137f5b4c-c29f-45a5-a353-49e77b17dd29", "31d92998-6fa8-4834-a140-3b2d121ac62a", "14739deb-64c6-471e-8468-7ea095f3e3a9"], "creditos": 0, "requiereCreditos": 0}]}], "estructuraPorAnio": [{"tipo": "semestral", "periodos": ["Semestre 1", "Semestre 2"]}, {"tipo": "semestral", "periodos": ["Semestre 1", "Semestre 2"]}, {"tipo": "semestral", "periodos": ["Semestre 1", "Semestre 2"]}, {"tipo": "semestral", "periodos": ["Semestre 1", "Semestre 2"]}], "cantidadAnios": 4};;
+const materiasAprobadas = JSON.parse(localStorage.getItem('materiasAprobadas') || '[]');
+
+function guardarEstado() {
+  localStorage.setItem('materiasAprobadas', JSON.stringify(materiasAprobadas));
+}
+
+function puedeHabilitar(materia) {
+  return materia.requisitos.every(req => materiasAprobadas.includes(req));
+}
+
+function crearTooltip(requisitos, todas) {
+  const nombres = requisitos.map(id => todas[id]?.nombre || 'Desconocido');
+  return 'Requiere: ' + nombres.join(', ');
+}
+
+function render() {
+  const contenedor = document.getElementById('malla');
+  contenedor.innerHTML = '';
+
+  const todasMaterias = {};
+  data.mallaData.forEach(bloque => {
+    bloque.materias?.forEach(m => todasMaterias[m.id] = m);
+  });
+
+  for (let año = 1; año <= data.cantidadAnios; año++) {
+    const col = document.createElement('div');
+    col.className = 'year';
+    col.innerHTML = `<h2>Año ${año}</h2>`;
+    const periodos = data.estructuraPorAnio[año - 1]?.periodos || ['anual'];
+
+    periodos.forEach(periodo => {
+      const materias = data.mallaData.find(b => b.año === año && b.periodo === periodo)?.materias || [];
+      const periodoDiv = document.createElement('div');
+      periodoDiv.className = 'period';
+      periodoDiv.innerHTML = `<h3>${periodo}</h3>`;
+
+      materias.forEach(materia => {
+        const el = document.createElement('div');
+        el.className = 'subject';
+        el.textContent = materia.nombre;
+        const aprobado = materiasAprobadas.includes(materia.id);
+        const habilitado = puedeHabilitar(materia);
+
+        if (aprobado) el.classList.add('approved');
+        else if (!habilitado && materia.requisitos.length) {
+          el.classList.add('disabled');
+          el.title = crearTooltip(materia.requisitos, todasMaterias);
+        }
+
+        el.addEventListener('click', () => {
+          if (!habilitado && !aprobado) return;
+          if (aprobado) {
+            materiasAprobadas.splice(materiasAprobadas.indexOf(materia.id), 1);
+          } else {
+            materiasAprobadas.push(materia.id);
+          }
+          guardarEstado();
+          render();
+        });
+
+        periodoDiv.appendChild(el);
+      });
+      col.appendChild(periodoDiv);
+    });
+    contenedor.appendChild(col);
+  }
+}
+
+render();
+</script>
+</body>
+</html>
