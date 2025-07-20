@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Interactiva - Fisioterapia</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9fb;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #6c63ff;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .year {
+      background: #eeeafd;
+      border-radius: 10px;
+      padding: 10px;
+      width: 250px;
+    }
+    .year h2 {
+      text-align: center;
+      color: #5c51c4;
+    }
+    .period {
+      margin-top: 10px;
+    }
+    .period h3 {
+      margin-bottom: 5px;
+      color: #554abf;
+    }
+    .subject {
+      background: #ffffff;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 2px solid #dcdcdc;
+      transition: 0.2s;
+    }
+    .subject:hover {
+      background: #f0f0ff;
+    }
+    .approved {
+      background: #c8f7c5 !important;
+      border-color: #87e189;
+      text-decoration: line-through;
+    }
+    .disabled {
+      background: #f1f1f1;
+      color: #aaa;
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+  </style>
+</head>
+<body>
+<h1>Malla Interactiva de Fisioterapia</h1>
+<div class="container" id="malla"></div>
+<script>
+const data = /** JSON extraído del archivo cargado por Valen **/;
+const materiasAprobadas = JSON.parse(localStorage.getItem('materiasAprobadas') || '[]');
+
+function guardarEstado() {
+  localStorage.setItem('materiasAprobadas', JSON.stringify(materiasAprobadas));
+}
+
+function puedeHabilitar(materia) {
+  return materia.requisitos.every(req => materiasAprobadas.includes(req));
+}
+
+function crearTooltip(requisitos, todas) {
+  const nombres = requisitos.map(id => todas[id]?.nombre || 'Desconocido');
+  return 'Requiere: ' + nombres.join(', ');
+}
+
+function render() {
+  const contenedor = document.getElementById('malla');
+  contenedor.innerHTML = '';
+
+  const todasMaterias = {};
+  data.mallaData.forEach(bloque => {
+    bloque.materias?.forEach(m => todasMaterias[m.id] = m);
+  });
+
+  for (let año = 1; año <= data.cantidadAnios; año++) {
+    const col = document.createElement('div');
+    col.className = 'year';
+    col.innerHTML = `<h2>Año ${año}</h2>`;
+    const periodos = data.estructuraPorAnio[año - 1]?.periodos || ['anual'];
+
+    periodos.forEach(periodo => {
+      const materias = data.mallaData.find(b => b.año === año && b.periodo === periodo)?.materias || [];
+      const periodoDiv = document.createElement('div');
+      periodoDiv.className = 'period';
+      periodoDiv.innerHTML = `<h3>${periodo}</h3>`;
+
+      materias.forEach(materia => {
+        const el = document.createElement('div');
+        el.className = 'subject';
+        el.textContent = materia.nombre;
+        const aprobado = materiasAprobadas.includes(materia.id);
+        const habilitado = puedeHabilitar(materia);
+
+        if (aprobado) el.classList.add('approved');
+        else if (!habilitado && materia.requisitos.length) {
+          el.classList.add('disabled');
+          el.title = crearTooltip(materia.requisitos, todasMaterias);
+        }
+
+        el.addEventListener('click', () => {
+          if (!habilitado && !aprobado) return;
+          if (aprobado) {
+            materiasAprobadas.splice(materiasAprobadas.indexOf(materia.id), 1);
+          } else {
+            materiasAprobadas.push(materia.id);
+          }
+          guardarEstado();
+          render();
+        });
+
+        periodoDiv.appendChild(el);
+      });
+      col.appendChild(periodoDiv);
+    });
+    contenedor.appendChild(col);
+  }
+}
+
+// Insertamos los datos en tiempo real desde el JSON cargado:
+(async () => {
+  const respuesta = await fetch('data:application/json,' + encodeURIComponent(`REEMPLAZAR_JSON_AQUI`));
+  const json = await respuesta.json();
+  Object.assign(data, json);
+  render();
+})();
+</script>
+</body>
+</html>
